@@ -13,6 +13,7 @@ if (has_all_keys($_GET, ['id'])) {
   $user_id = $info['id'];
 
   // verify the user
+  verify_user($user_id);
   show_success('User verified');
 } else {
   show_error('Missing user id');
