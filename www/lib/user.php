@@ -63,6 +63,24 @@ function verify_user($user_id) {
   $statement->closeCursor();
 }
 
+function ban_user($user_id) {
+  $db = get_db();
+  $query = "UPDATE users SET verified = 0 WHERE id = :user_id";
+  $statement = $db->prepare($query);
+  $statement->bindValue(':user_id', $user_id);
+  $statement->execute();
+  $statement->closeCursor();
+}
+
+function delete_user($user_id) {
+  $db = get_db();
+  $query = "DELETE FROM users WHERE id = :user_id";
+  $statement = $db->prepare($query);
+  $statement->bindValue(':user_id', $user_id);
+  $statement->execute();
+  $statement->closeCursor();
+}
+
 function find_user_by_id($user_id) {
   $db = get_db();
   $query = "SELECT * FROM users WHERE id = :user_id";
@@ -104,4 +122,14 @@ function generate_password() {
     $random_string .= $characters[rand(0, $characters_length - 1)];
   }
   return $random_string;
+}
+
+function get_all_users() {
+  $db = get_db();
+  $query = "SELECT * FROM users";
+  $statement = $db->prepare($query);
+  $statement->execute();
+  $users = $statement->fetchAll();
+  $statement->closeCursor();
+  return $users;
 }
