@@ -51,7 +51,7 @@ form {
 form input,
 form textarea
 {
-  width: 300px;
+  width: 200px;
   height: 50px;
   border: 1px solid #333;
   border-radius: 5px;
@@ -65,7 +65,7 @@ form input:focus {
 }
 
 form button {
-  width: 300px;
+  width: 200px;
   height: 50px;
   border: 1px solid #333;
   border-radius: 5px;
@@ -81,7 +81,7 @@ form button:hover {
 
 /* Alert */
 .alert {
-  width: 300px;
+  width: 200px;
   height: 50px;
   color: white;
   text-align: center;
@@ -101,6 +101,15 @@ form button:hover {
 
 .alert-danger {
   background-color: #f44336;
+}
+
+/* If screen size is less than 600px, position the alert at the bottom */
+@media screen and (max-width: 600px) {
+  .alert {
+    position: fixed;
+    bottom: 0;
+    top: unset;
+  }
 }
 
 /* Container */
@@ -148,7 +157,7 @@ h1 {
 
 .products {
   display: flex;
-  flex-wrap: nowrap;
+  flex-wrap: wrap;
   gap: 20px;
 }
 
