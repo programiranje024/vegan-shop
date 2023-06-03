@@ -15,6 +15,10 @@ class User {
     } else {
       $hashed_password = password_hash($password, PASSWORD_DEFAULT);
       $user = self::insertUser($email, $hashed_password);
+      $token = self::createVerificationToken($user['id']);
+
+      Mailer::sendMail($email, 'Verify your account', "Click this link to verify your account: http://localhost/user/verify.php?token=$token");
+
       return $user;
     }
   }
@@ -50,11 +54,43 @@ class User {
     $statement->closeCursor();
   }
 
-  static function sendVerificationEmail($user) {
-    $to = $user['email'];
-    $subject = 'Verify your email';
-    $message = 'Click this link to verify your email: http://localhost:8000/verify.php?id=' . $user['id'];
-    send_email($to, $subject, $message);
+  static function createVerificationToken($id) {
+    $token = self::generatePassword();
+    $db = Db::get();
+    $query = "INSERT INTO verification (user_id, token) VALUES (:user_id, :token)";
+    $statement = $db->prepare($query);
+    $statement->bindValue(':user_id', $id);
+    $statement->bindValue(':token', $token);
+    $statement->execute();
+
+    return $token;
+  }
+
+  static function deleteVerificationToken($token) {
+    $db = Db::get();
+    $query = "DELETE FROM verification WHERE token = :token";
+    $statement = $db->prepare($query);
+    $statement->bindValue(':token', $token);
+    $statement->execute();
+  }
+
+  static function verifyUserWithToken($token) {
+    $db = Db::get();
+    $query = "SELECT user_id FROM verification WHERE token = :token";
+    $statement = $db->prepare($query);
+    $statement->bindValue(':token', $token);
+    $statement->execute();
+    $result = $statement->fetch();
+    $statement->closeCursor();
+
+    if ($result) {
+      $user_id = $result['user_id'];
+      self::verifyUser($user_id);
+      self::deleteVerificationToken($token);
+      return true;
+    } else {
+      return false;
+    }
   }
 
   static function isAdmin($id) {

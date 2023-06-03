@@ -8,13 +8,16 @@ Session::guestGuard();
 include_once('../views/header.php');
 
 // get the user id from the url
-if (Request::hasAllKeys($_GET, ['id'])) {
-  $info = Request::getFromGet(['id']);
-  $user_id = $info['id'];
+if (Request::hasAllKeys($_GET, ['token'])) {
+  $info = Request::getFromGet(['token']);
+  $token = $info['token'];
 
   // verify the user
-  User::verifyUser($user_id);
-  Response::showSuccess('User verified');
+  if (User::verifyUserWithToken($token)) {
+    Response::showSuccess('User verified');
+  } else {
+    Response::showError('Invalid token');
+  }
 } else {
   Response::showError('Missing user id');
 }
