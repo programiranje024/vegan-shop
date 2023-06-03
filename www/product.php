@@ -7,6 +7,13 @@ include_once('views/header.php');
 if (has_all_keys($_GET, ['id'])) {
   $id = $_GET['id'];
   $product = find_product_by_id($id);
+
+  if (is_submitted()) {
+    $user = get_session_user();
+    add_to_cart($id, $user['id']);
+
+    show_success('Product added to cart');
+  }
 }
 else {
   die(show_error('Missing required parameters'));
@@ -20,16 +27,13 @@ else {
 <?php
 if (is_logged_in()) {
 ?>
-<script>
-  const product = {
-    id: <?= $product['id']; ?>,
-    name: '<?= $product['name']; ?>',
-    price: <?= $product['price']; ?>,
-    description: '<?= $product['description']; ?>',
-    image: '<?= $product['image']; ?>'
-  };
-</script>
-<script src="/js/store.js"></script>
+<form action="/product.php?id=<?= $id ?>" method="post">
+  <input type="submit" name="submit" value="Add to Cart" />
+</form>
+<?php
+} else {
+?>
+<p>Please <a href="/login.php">login</a> to add to cart</p>
 <?php
 }
 ?>
