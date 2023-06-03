@@ -14,7 +14,7 @@ function remove_from_cart($product_id, $user_id) {
 
 function get_cart_items($user_id) {
   $db = get_db();
-  $stmt = $db->prepare('SELECT product_id AS id, name, description, price, COUNT(*) AS quantity FROM cart JOIN products ON products.id = cart.product_id WHERE user_id = ?');
+  $stmt = $db->prepare('SELECT product_id AS id, name, description, price, COUNT(*) AS quantity FROM cart JOIN products ON products.id = cart.product_id WHERE user_id = ? GROUP BY id');
   $stmt->execute([$user_id]);
   // filter out all where ID is null
   return array_filter($stmt->fetchAll(), function($item) {

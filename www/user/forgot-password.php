@@ -30,7 +30,14 @@ if (is_submitted()) {
 // include header
 include_once('../views/header.php');
 ?>
-<form action="/user/forgot-password.php" method="post">
-  <input type="email" name="email" placeholder="Email" required>
-  <input type="submit" name="submit" value="Reset Password">
-</form>
+<div class="container">
+  <form action="/user/forgot-password.php" method="post">
+    <input type="email" name="email" placeholder="Email" required>
+    <input type="submit" name="submit" value="Reset Password">
+  </form>
+</div>
+
+<?php
+// include footer
+include_once('../views/footer.php');
+?>

@@ -26,10 +26,16 @@ if (is_submitted()) {
 }
 ?>
 
-<p>Logged in as: <?= $user['email'] ?></p>
-<form action="/user/profile.php" method="post">
-  <input type="password" name="password" placeholder="Password">
-  <input type="password" name="old_password" placeholder="Old password">
-  <input type="submit" name="submit" value="Change password">
-</form>
+<div class="container">
+  <p>Logged in as: <?= $user['email'] ?></p>
+  <form action="/user/profile.php" method="post">
+    <input type="password" name="password" placeholder="Password">
+    <input type="password" name="old_password" placeholder="Old password">
+    <input type="submit" name="submit" value="Change password">
+  </form>
+</div>
 
+<?php
+// include footer
+include_once('../views/footer.php');
+?>

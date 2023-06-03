@@ -9,4 +9,6 @@ show_success("User logged out");
 
 // include header
 include_once('../views/header.php');
+// include footer
+include_once('../views/footer.php');
 ?>

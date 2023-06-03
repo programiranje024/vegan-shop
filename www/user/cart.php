@@ -31,47 +31,53 @@ if (is_submitted()) {
 }
 ?>
 
-<h1>Cart</h1>
-<?php if(empty($items)) { ?>
-<p>Your cart is empty</p>
-<?php } else { ?>
-<table>
-  <thead>
-    <tr>
-      <th>Product</th>
-      <th>Price</th>
-      <th>Quantity</th>
-      <th>Subtotal</th>
-      <th>Actions</th>
-    </tr>
-  </thead>
-  <tbody>
-    <?php
-    $total = 0;
-    foreach ($items as $item) {
-      $product = find_product_by_id($item['id']);
-      $subtotal = $product['price'] * $item['quantity'];
-      $total += $subtotal;
-    ?>
+<div class="container">
+  <h1>Cart</h1>
+  <?php if(empty($items)) { ?>
+  <p>Your cart is empty</p>
+  <?php } else { ?>
+  <table>
+    <thead>
       <tr>
-        <td><?= $product['name'] ?></td>
-        <td><?= $product['price'] ?></td>
-        <td><?= $item['quantity'] ?></td>
-        <td><?= $subtotal ?></td>
-        <td>
-          <form action="/user/cart.php" method="post">
-            <input type="hidden" name="id" value="<?= $item['id'] ?>" />
-            <input type="submit" name="submit" value="Remove" />
-          </form>
-        </td>
+        <th>Product</th>
+        <th>Price</th>
+        <th>Quantity</th>
+        <th>Subtotal</th>
+        <th>Actions</th>
       </tr>
-    <?php
-    }
-    ?>
-</table>
-<p>Total: <?= $total ?></p>
-<form action="/user/cart.php" method="post">
-  <input type="submit" name="submit" value="Checkout" />
-</form>
-<?php } ?>
+    </thead>
+    <tbody>
+      <?php
+      $total = 0;
+      foreach ($items as $item) {
+        $product = find_product_by_id($item['id']);
+        $subtotal = $product['price'] * $item['quantity'];
+        $total += $subtotal;
+      ?>
+        <tr>
+          <td><?= $product['name'] ?></td>
+          <td><?= $product['price'] ?></td>
+          <td><?= $item['quantity'] ?></td>
+          <td><?= $subtotal ?></td>
+          <td>
+            <form action="/user/cart.php" method="post">
+              <input type="hidden" name="id" value="<?= $item['id'] ?>" />
+              <input type="submit" name="submit" value="Remove" />
+            </form>
+          </td>
+        </tr>
+      <?php
+      }
+      ?>
+  </table>
+  <p>Total: <?= $total ?></p>
+  <form action="/user/cart.php" method="post">
+    <input type="submit" name="submit" value="Checkout" />
+  </form>
+  <?php } ?>
+</div>
 
+<?php
+// include footer
+include_once('../views/footer.php');
+?>

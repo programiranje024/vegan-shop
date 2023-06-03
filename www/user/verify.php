@@ -18,3 +18,7 @@ if (has_all_keys($_GET, ['id'])) {
   show_error('Missing user id');
 }
 
+// include footer
+include_once('../views/footer.php');
+?>
+

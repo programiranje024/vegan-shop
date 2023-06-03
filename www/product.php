@@ -19,21 +19,28 @@ else {
   die(show_error('Missing required parameters'));
 }
 ?>
-<h1>Vegan Shop</h1>
-<h2>Product: <?= $product['name']; ?></h2>
-<p>Price: <?= $product['price']; ?></p>
-<p>Description: <?= $product['description']; ?></p>
-<img src="/uploads/<?= $product['image']; ?>" height="500" />
+<div class="container">
+  <h1>Vegan Shop</h1>
+  <h2>Product: <?= $product['name']; ?></h2>
+  <p>Price: <?= $product['price']; ?></p>
+  <p>Description: <?= $product['description']; ?></p>
+  <img src="/uploads/<?= $product['image']; ?>" height="500" />
+  <?php
+  if (is_logged_in()) {
+  ?>
+    <form action="/product.php?id=<?= $id ?>" method="post">
+      <input type="submit" name="submit" value="Add to Cart" />
+    </form>
+  <?php
+    } else {
+  ?>
+    <p>Please <a href="/login.php">login</a> to add to cart</p>
+  <?php
+    }
+  ?>
+</div>
+
 <?php
-if (is_logged_in()) {
-?>
-<form action="/product.php?id=<?= $id ?>" method="post">
-  <input type="submit" name="submit" value="Add to Cart" />
-</form>
-<?php
-} else {
-?>
-<p>Please <a href="/login.php">login</a> to add to cart</p>
-<?php
-}
+// include footer
+include_once('views/footer.php');
 ?>

@@ -28,9 +28,16 @@ if (is_submitted()) {
 }
 ?>
 
-<form action="/user/register.php" method="post">
-  <input type="emal" name="email" placeholder="Email" required>
-  <input type="password" name="password" placeholder="Password" required>
-  <input type="password" name="confirm_password" placeholder="Confirm Password" required>
-  <input type="submit" name="submit" value="Register">
-</form>
+<div class="container">
+  <form action="/user/register.php" method="post">
+    <input type="emal" name="email" placeholder="Email" required>
+    <input type="password" name="password" placeholder="Password" required>
+    <input type="password" name="confirm_password" placeholder="Confirm Password" required>
+    <input type="submit" name="submit" value="Register">
+  </form>
+</div>
+
+<?php
+// include footer
+include_once('../views/footer.php');
+?>

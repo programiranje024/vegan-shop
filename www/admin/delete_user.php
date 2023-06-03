@@ -26,3 +26,7 @@ if (has_all_keys($_GET, ['id'])) {
 else {
   show_error('Missing required parameters');
 }
+
+// include footer
+include_once('../views/footer.php');
+?>

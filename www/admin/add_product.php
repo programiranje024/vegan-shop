@@ -29,11 +29,18 @@ if (is_submitted()) {
 }
 ?>
 
-<h1>Add Product</h1>
-<form action="/admin/add_product.php" method="post" enctype="multipart/form-data">
-  <input type="text" name="name" placeholder="Name" required />
-  <input type="number" name="price" min="1" placeholder="Price"  required />
-  <textarea name="description" placeholder="Description" required></textarea>
-  <input type="file" name="image" required />
-  <input type="submit" name="submit" value="Add Product" />
-</form>
+<div class="container">
+  <h1>Add Product</h1>
+  <form action="/admin/add_product.php" method="post" enctype="multipart/form-data">
+    <input type="text" name="name" placeholder="Name" required />
+    <input type="number" name="price" min="1" placeholder="Price"  required />
+    <textarea name="description" placeholder="Description" required></textarea>
+    <input type="file" name="image" required />
+    <input type="submit" name="submit" value="Add Product" />
+  </form>
+</div>
+
+<?php
+// include footer
+include_once('../views/footer.php');
+?>
