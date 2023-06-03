@@ -4,11 +4,11 @@ require_once('../lib/lib.php');
 // include header
 include_once('../views/header.php');
 
-admin_guard();
-$users = get_all_users();
+Session::adminGuard();
+$users = User::getAllUsers();
 // filter out the current user
 $users = array_filter($users, function($user) {
-  return $user['id'] !== get_session_user()['id'];
+  return $user['id'] !== Session::getSessionUser()['id'];
 });
 ?>
 

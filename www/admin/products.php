@@ -4,8 +4,8 @@ require_once('../lib/lib.php');
 // include header
 include_once('../views/header.php');
 
-admin_guard();
-$products = get_all_products();
+Session::adminGuard();
+$products = Product::getAll();
 ?>
 
 <div class="container">

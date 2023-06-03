@@ -21,7 +21,7 @@ services:
     ports:
       - 80:80
     volumes:
-      - ./www:/app:ro
+      - ./www:/app
       - ./www/uploads:/app/uploads
   mailhog:
     image: mailhog/mailhog

@@ -2,21 +2,21 @@
 // require all libs
 require_once('../lib/lib.php');
 
-guest_guard();
+Session::guestGuard();
 
 // include header
 include_once('../views/header.php');
 
 // get the user id from the url
-if (has_all_keys($_GET, ['id'])) {
-  $info = get_from_get(['id']);
+if (Request::hasAllKeys($_GET, ['id'])) {
+  $info = Request::getFromGet(['id']);
   $user_id = $info['id'];
 
   // verify the user
-  verify_user($user_id);
-  show_success('User verified');
+  User::verifyUser($user_id);
+  Response::showSuccess('User verified');
 } else {
-  show_error('Missing user id');
+  Response::showError('Missing user id');
 }
 
 // include footer

@@ -4,21 +4,21 @@ require_once('../lib/lib.php');
 // include header
 include_once('../views/header.php');
 
-admin_guard();
+Session::adminGuard();
 
-if (has_all_keys($_GET, ['id'])) {
+if (Request::hasAllKeys($_GET, ['id'])) {
   $id = $_GET['id'];
-  $product = find_product_by_id($id);
+  $product = Product::findById($id);
   if ($product) {
-    delete_product($id);
-    show_success('Product is now deleted');
+    Product::delete($id);
+    Response::showSuccess('Product is now deleted');
   }
   else {
-    show_error('Product not found');
+    Response::showError('Product not found');
   }
 }
 else {
-  show_error('Missing required parameters');
+  Response::showError('Missing required parameters');
 }
 
 // include footer

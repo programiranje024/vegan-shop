@@ -4,7 +4,7 @@ require_once('lib/lib.php');
 // include header
 include_once('views/header.php');
 
-$products = get_all_products();
+$products = Product::getAll();
 ?>
 <div class="container">
   <h1>Vegan Shop</h1>

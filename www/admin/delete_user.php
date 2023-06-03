@@ -4,27 +4,27 @@ require_once('../lib/lib.php');
 // include header
 include_once('../views/header.php');
 
-admin_guard();
-$user = get_session_user();
+Session::adminGuard();
+$user = Session::getSessionUser();
 
-if (has_all_keys($_GET, ['id'])) {
+if (Request::hasAllKeys($_GET, ['id'])) {
   $id = $_GET['id'];
-  $user = find_user_by_id($id);
+  $user = User::findById($id);
   if ($user) {
-    if ($user['id'] === get_session_user()['id']) {
-      show_error('Cannot delete yourself');
+    if ($user['id'] === Session::getSessionUser()['id']) {
+      Response::showError('Cannot delete yourself');
     }
     else {
-      delete_user($id);
-      show_success('User is now deleted');
+      User::deleteUser($id);
+      Response::showSuccess('User is now deleted');
     }
   }
   else {
-    show_error('User not found');
+    Response::showError('User not found');
   }
 }
 else {
-  show_error('Missing required parameters');
+  Response::showError('Missing required parameters');
 }
 
 // include footer

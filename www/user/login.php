@@ -2,22 +2,22 @@
 // require all libs
 require_once('../lib/lib.php');
 
-guest_guard();
+Session::guestGuard();
 
 // form handler
-if (is_submitted()) {
-  if (has_all_keys($_POST, ['email', 'password'])) {
-    $info = get_from_post(['email', 'password']);
-    $user = login($info['email'], $info['password']);
+if (Request::isSubmitted()) {
+  if (Request::hasAllKeys($_POST, ['email', 'password'])) {
+    $info = Request::getFromPost(['email', 'password']);
+    $user = User::login($info['email'], $info['password']);
     if ($user) {
-      set_session_user($user);
-      show_success("User logged in");
+      Session::setSessionUser($user);
+      Response::showSuccess("User logged in");
     } else {
-      show_error("Invalid email or password");
+      Response::showError("Invalid email or password");
     }
   }
   else {
-    show_error("Please fill in all fields");
+    Response::showError("Please fill in all fields");
   }
 }
 
@@ -25,7 +25,7 @@ if (is_submitted()) {
 include_once('../views/header.php');
 ?>
 <?php 
-if (!is_logged_in()) {
+if (!Session::isLoggedIn()) {
 ?>
 <div class="container">
   <form action="/user/login.php" method="post">

@@ -2,28 +2,28 @@
 // require all libs
 require_once('../lib/lib.php');
 
-guest_guard();
+Session::guestGuard();
 
 // form handler
-if (is_submitted()) {
-  if (has_all_keys($_POST, ['email'])) {
-    $email = get_from_post(['email'])['email'];
-    $user = find_user_by_email($email);
+if (Request::isSubmitted()) {
+  if (Request::hasAllKeys($_POST, ['email'])) {
+    $email = Request::getFromPost(['email'])['email'];
+    $user = User::findUserByEmail($email);
 
-    $generated_password = generate_password();
+    $generated_password = User::generatePassword();
 
     if ($user) {
-      update_password($user['id'], $generated_password);
-      send_mail($email, 'Reset Password', 'Your password is: ' . $generated_password . '. Please login and change it');
+      User::updatePassword($user['id'], $generated_password);
+      Mailer::sendMail($email, 'Reset Password', 'Your password is: ' . $generated_password . '. Please login and change it');
 
-      show_success('Password reset successfully');
+      Response::showSuccess('Password reset successfully');
     }
     else {
-      show_error('User not found');
+      Response::showError('User not found');
     }
   }
   else {
-    show_error('Please fill all fields');
+    Response::showError('Please fill all fields');
   }
 }
 

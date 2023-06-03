@@ -2,10 +2,10 @@
 // require all libs
 require_once('../lib/lib.php');
 
-user_guard();
-clear_session_user();
+Session::userGuard();
+Session::clearSessionUser();
 
-show_success("User logged out");
+Response::showSuccess("User logged out");
 
 // include header
 include_once('../views/header.php');

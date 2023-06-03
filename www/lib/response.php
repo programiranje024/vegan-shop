@@ -1,9 +1,13 @@
 <?php
 
-function show_error($message) {
-  echo "<div class='alert alert-danger' role='alert'>$message</div>";
-}
+class Response {
 
-function show_success($message) {
-  echo "<div class='alert alert-success' role='alert'>$message</div>";
+  static function showError($message) {
+    echo "<div class='alert alert-danger' role='alert'>$message</div>";
+  }
+
+  static function showSuccess($message) {
+    echo "<div class='alert alert-success' role='alert'>$message</div>";
+  }
+
 }

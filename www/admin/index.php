@@ -4,8 +4,8 @@ require_once('../lib/lib.php');
 // include header
 include_once('../views/header.php');
 
-admin_guard();
-$user = get_session_user();
+Session::adminGuard();
+$user = Session::getSessionUser();
 ?>
 
 <div class="container">

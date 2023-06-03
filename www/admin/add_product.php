@@ -2,29 +2,29 @@
 // require all libs
 require_once('../lib/lib.php');
 
-admin_guard();
+Session::adminGuard();
 
 // include header
 include_once('../views/header.php');
 
 // form handler
-if (is_submitted()) {
-  if (has_all_keys($_POST, ['name', 'price', 'description'])) {
+if (Request::isSubmitted()) {
+  if (Request::hasAllKeys($_POST, ['name', 'price', 'description'])) {
     $name = $_POST['name'];
     $price = $_POST['price'];
     $description = $_POST['description'];
-    $image = upload_image();
+    $image = Request::uploadImage();
 
     if ($image) {
-      create_product($name, $description, $price, $image);
-      show_success('Product created');
+      Product::create($name, $description, $price, $image);
+      Response::showSuccess('Product created');
     }
     else {
-      show_error('Image upload failed');
+      Response::showError('Image upload failed');
     }
   }
   else {
-    show_error('Missing required parameters');
+    Response::showError('Missing required parameters');
   }
 }
 ?>

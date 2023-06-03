@@ -4,19 +4,19 @@ require_once('lib/lib.php');
 // include header
 include_once('views/header.php');
 
-if (has_all_keys($_GET, ['id'])) {
+if (Request::hasAllKeys($_GET, ['id'])) {
   $id = $_GET['id'];
-  $product = find_product_by_id($id);
+  $product = Product::findById($id);
 
-  if (is_submitted()) {
-    $user = get_session_user();
-    add_to_cart($id, $user['id']);
+  if (Request::isSubmitted()) {
+    $user = Session::getSessionUser();
+    Product::addToCart($id, $user['id']);
 
-    show_success('Product added to cart');
+    Response::showSuccess('Product added to cart');
   }
 }
 else {
-  die(show_error('Missing required parameters'));
+  die(Response::showError('Missing required parameters'));
 }
 ?>
 <div class="container">
@@ -26,7 +26,7 @@ else {
   <p>Description: <?= $product['description']; ?></p>
   <img src="/uploads/<?= $product['image']; ?>" height="500" />
   <?php
-  if (is_logged_in()) {
+  if (Session::isLoggedIn()) {
   ?>
     <form action="/product.php?id=<?= $id ?>" method="post">
       <input type="submit" name="submit" value="Add to Cart" />

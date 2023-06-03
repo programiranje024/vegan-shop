@@ -5,27 +5,27 @@ require_once('../lib/lib.php');
 // include header
 include_once('../views/header.php');
 
-user_guard();
+Session::userGuard();
 
-$user = get_session_user();
-$items = get_cart_items($user['id']);
+$user = Session::getSessionUser();
+$items = Product::getCartItems($user['id']);
 
-if (is_submitted()) {
-  if (has_all_keys($_POST, ['id'])) {
+if (Request::isSubmitted()) {
+  if (Request::hasAllKeys($_POST, ['id'])) {
     $id = $_POST['id'];
-    $product = find_product_by_id($id);
+    $product = Product::findById($id);
     if ($product) {
-      remove_from_cart($id, $user['id']);
-      show_success('Product removed from cart');
-      $items = get_cart_items($user['id']);
+      Product::removeFromCart($id, $user['id']);
+      Response::showSuccess('Product removed from cart');
+      $items = Product::getCartItems($user['id']);
     }
     else {
-      show_error('Product not found');
+      Response::showError('Product not found');
     }
   }
   else {
-    make_order($user['id']);
-    show_success('Order placed');
+    Product::finishOrder($user['id']);
+    Response::showSuccess('Order placed');
     $items = [];
   }
 }
@@ -50,7 +50,7 @@ if (is_submitted()) {
       <?php
       $total = 0;
       foreach ($items as $item) {
-        $product = find_product_by_id($item['id']);
+        $product = Product::findById($item['id']);
         $subtotal = $product['price'] * $item['quantity'];
         $total += $subtotal;
       ?>

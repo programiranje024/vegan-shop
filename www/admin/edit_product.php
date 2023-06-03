@@ -2,41 +2,41 @@
 // require all libs
 require_once('../lib/lib.php');
 
-admin_guard();
+Session::adminGuard();
 
 // include header
 include_once('../views/header.php');
 
-if (has_all_keys($_GET, ['id'])) {
+if (Request::hasAllKeys($_GET, ['id'])) {
   $id = $_GET['id'];
 }
 else {
-  show_error('Missing required parameters');
+  Response::showError('Missing required parameters');
 }
 
-$product = find_product_by_id($id);
+$product = Product::findById($id);
 
 // form handler
-if (is_submitted()) {
-  if (has_all_keys($_POST, ['name', 'price', 'description'])) {
+if (Request::isSubmitted()) {
+  if (Request::hasAllKeys($_POST, ['name', 'price', 'description'])) {
     $name = $_POST['name'];
     $price = $_POST['price'];
     $description = $_POST['description'];
 
     if (isset($_FILES['image'])) {
-      $image = upload_image();
+      $image = Request::uploadImage();
     }
     else {
       $image = $product['image'];
     }
 
-    update_product($id, $name, $description, $price, $image);
-    show_success('Product updated');
+    Product::update($id, $name, $description, $price, $image);
+    Response::showSuccess('Product updated');
 
-    $product = find_product_by_id($id);
+    $product = Product::findById($id);
   }
   else {
-    show_error('Missing required parameters');
+    Response::showError('Missing required parameters');
   }
 }
 ?>

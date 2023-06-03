@@ -2,26 +2,26 @@
 // require all libs
 require_once('../lib/lib.php');
 
-$user = get_session_user();
+$user = Session::getSessionUser();
 
 // include header
 include_once('../views/header.php');
 
-if (is_submitted()) {
-  if (has_all_keys($_POST, ['password', 'old_password'])) {
-    $info = get_from_post(['password', 'old_password']);
+if (Request::isSubmitted()) {
+  if (Request::hasAllKeys($_POST, ['password', 'old_password'])) {
+    $info = Request::getFromPost(['password', 'old_password']);
 
     $password = $info['password'];
     $old_password = $info['old_password'];
 
-    if (change_password($user['id'], $password, $old_password)) {
-      show_success('Password changed');
+    if (User::changePassword($user['id'], $password, $old_password)) {
+      Response::showSuccess('Password changed');
     } else {
-      show_error('Old password is incorrect');
+      Response::showError('Old password is incorrect');
     }
   } 
   else {
-    show_error('Please fill in all fields');
+    Response::showError('Please fill in all fields');
   }
 }
 ?>
