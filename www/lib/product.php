@@ -9,10 +9,10 @@ function get_all_products() {
   return $stmt->fetchAll();
 }
 
-function create_product($name, $description, $price) {
+function create_product($name, $description, $price, $image) {
   $db = get_db();
-  $stmt = $db->prepare('INSERT INTO products (name, description, price) VALUES (?, ?, ?)');
-  $stmt->execute([$name, $description, $price]);
+  $stmt = $db->prepare('INSERT INTO products (name, description, price, image) VALUES (?, ?, ?, ?)');
+  $stmt->execute([$name, $description, $price, $image]);
 }
 
 function delete_product($id) {
@@ -21,10 +21,10 @@ function delete_product($id) {
   $stmt->execute([$id]);
 }
 
-function update_product($id, $name, $description, $price) {
+function update_product($id, $name, $description, $price, $image) {
   $db = get_db();
-  $stmt = $db->prepare('UPDATE products SET name = ?, description = ?, price = ? WHERE id = ?');
-  $stmt->execute([$name, $description, $price, $id]);
+  $stmt = $db->prepare('UPDATE products SET name = ?, description = ?, price = ?, image = ? WHERE id = ?');
+  $stmt->execute([$name, $description, $price, $image, $id]);
 }
 
 function find_product_by_id($id) {

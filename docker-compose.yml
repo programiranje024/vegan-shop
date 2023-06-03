@@ -20,6 +20,7 @@ services:
       - 80:80
     volumes:
       - ./www:/app:ro
+      - ./www/uploads:/app/uploads
   mailhog:
     image: mailhog/mailhog
     container_name: 'vegan_shop_mail'
