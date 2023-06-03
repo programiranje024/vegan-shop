@@ -12,9 +12,16 @@ services:
     ports:
       - 3306:3306
   web:
-    image: webdevops/php-apache:8.0
+    image: webdevops/php-apache-dev:8.0
     container_name: 'vegan_shop_www'
+    environment:
+      - POSTFIX_RELAYHOST=[mailhog]:1025
     ports:
       - 80:80
     volumes:
       - ./www:/app:ro
+  mailhog:
+    image: mailhog/mailhog
+    container_name: 'vegan_shop_mail'
+    ports:
+      - 8025:8025
