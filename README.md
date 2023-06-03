@@ -5,7 +5,10 @@ Projekat je veoma jednostavan i ne prati sve sigurnosne mere.
 Ukoliko želite da ga podignete u lokalu potrebno je samo da imate Docker i Docker Compose.
 
 Pokrenuti sa: `docker compose up`
+
 Projekat će biti pokrenut na: `http://localhost`
+
+MailHog servis za presretanje mail-ova se nalazi na: `http://localhost:8025`
 
 - 2 vrste korisnika + guest mode
 - Slanje mejlova za verifikaciju, i potvrdu porudžbine
