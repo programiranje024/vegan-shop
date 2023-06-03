@@ -11,6 +11,8 @@ services:
       MARIADB_PASSWORD: vegan
     ports:
       - 3306:3306
+    volumes:
+      - ./db:/docker-entrypoint-initdb.d
   web:
     image: webdevops/php-apache-dev:8.0
     container_name: 'vegan_shop_www'
