@@ -61,8 +61,6 @@ class Product {
     $items = self::getCartItems($user_id);
     $user = User::findById($user_id);
 
-    var_dump($user);
-
     $db = Db::get();
     $stmt = $db->prepare('INSERT INTO orders (user_id) VALUES (?)');
     $stmt->execute([$user_id]);
