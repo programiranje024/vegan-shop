@@ -8,18 +8,11 @@ Session::guestGuard();
 if (Request::isSubmitted()) {
   if (Request::hasAllKeys($_POST, ['email'])) {
     $email = Request::getFromPost(['email'])['email'];
-    $user = User::findUserByEmail($email);
-
-    $generated_password = User::generatePassword();
-
-    if ($user) {
-      User::updatePassword($user['id'], $generated_password);
-      Mailer::sendMail($email, 'Reset Password', 'Your password is: ' . $generated_password . '. Please login and change it');
-
-      Response::showSuccess('Password reset successfully');
+    if (User::requestPasswordChange($email)) {
+      Response::showSuccess('Check your email for a link to reset your password');
     }
     else {
-      Response::showError('User not found');
+      Response::showError('Something went wrong');
     }
   }
   else {

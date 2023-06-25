@@ -66,6 +66,26 @@ class User {
     return $token;
   }
 
+  static function createResetToken($id) {
+    $token = self::generatePassword();
+    $db = Db::get();
+    $query = "INSERT INTO password_reset (user_id, token) VALUES (:user_id, :token)";
+    $statement = $db->prepare($query);
+    $statement->bindValue(':user_id', $id);
+    $statement->bindValue(':token', $token);
+    $statement->execute();
+
+    return $token;
+  }
+
+  static function deleteResetToken($token) {
+    $db = Db::get();
+    $query = "DELETE FROM password_reset WHERE token = :token";
+    $statement = $db->prepare($query);
+    $statement->bindValue(':token', $token);
+    $statement->execute();
+  }
+
   static function deleteVerificationToken($token) {
     $db = Db::get();
     $query = "DELETE FROM verification WHERE token = :token";
@@ -146,6 +166,34 @@ class User {
     $user = self::findById($id);
     if (password_verify($old_password, $user['password'])) {
       self::updatePassword($id, $password);
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  static function requestPasswordChange($email) {
+    $user = self::findUserByEmail($email);
+    if ($user) {
+      $token = self::createResetToken($user['id']);
+
+      Mailer::sendMail($email, 'Reset your password', "Click this link to reset your password: http://localhost/user/reset-password.php?token=$token");
+
+      return true;
+    }
+
+    return false;
+  }
+
+  static function resetPassword($password, $token) {
+    $db = Db::get();
+    $stmt = $db->prepare('SELECT user_id FROM password_reset WHERE token = ?');
+    $stmt->execute([$token]);
+    $result = $stmt->fetch();
+    if ($result) {
+      $user_id = $result['user_id'];
+      self::updatePassword($user_id, $password);
+      self::deleteResetToken($token);
       return true;
     } else {
       return false;
