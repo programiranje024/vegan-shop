@@ -10,6 +10,14 @@ class ShoppingList {
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
   }
 
+  static function getById($id) {
+    $db = Db::get();
+    $stmt = $db->prepare('SELECT * FROM shopping_list WHERE id = :id');
+    $stmt->bindParam(':id', $id);
+    $stmt->execute();
+    return $stmt->fetch(PDO::FETCH_ASSOC);
+  }
+
   static function getListsByUser($user_id) {
     $db = Db::get();
     $stmt = $db->prepare('SELECT * FROM shopping_list WHERE user_id = :user_id');
