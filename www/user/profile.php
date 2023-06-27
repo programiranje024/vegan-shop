@@ -33,6 +33,17 @@ if (Request::isSubmitted()) {
     <input type="password" name="old_password" placeholder="Old password">
     <input type="submit" name="submit" value="Change password">
   </form>
+  <hr />
+  <p>Recently ordered products:</p>
+  <ul>
+  <?php foreach(Product::getRecentlyOrderedProducts($user['id']) as $product) { ?>
+    <li>
+      <a href="/product.php?id=<?= $product['id'] ?>">
+        <?= $product['name'] ?>
+      </a>
+    </li>
+  <?php } ?>
+  </ul>
 </div>
 
 <?php
