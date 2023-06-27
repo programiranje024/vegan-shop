@@ -54,3 +54,19 @@ CREATE TABLE IF NOT EXISTS password_reset (
   created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
   FOREIGN KEY (user_id) REFERENCES users(id)
 );
+
+CREATE TABLE IF NOT EXISTS shopping_list (
+  user_id INTEGER NOT NULL,
+  name TEXT NOT NULL,
+  created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (user_id) REFERENCES users(id)
+);
+
+CREATE TABLE IF NOT EXISTS shopping_list_items (
+  id INTEGER PRIMARY KEY AUTO_INCREMENT,
+  shopping_list_id INTEGER NOT NULL,
+  product_id INTEGER NOT NULL,
+  quantity INTEGER NOT NULL,
+  FOREIGN KEY (shopping_list_id) REFERENCES shopping_list(id),
+  FOREIGN KEY (product_id) REFERENCES products(id)
+);
