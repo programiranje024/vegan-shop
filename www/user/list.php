@@ -9,7 +9,17 @@ if (Request::hasAllKeys($_GET, ['id'])) {
   $list = ShoppingList::getById($id);
 
   if (Request::isSubmitted()) {
-    Response::showSuccess('Product added to cart');
+    if (Request::hasAllKeys($_POST, ['name'])) {
+      $name = $_POST['name'];
+
+      ShoppingList::update($id, $name);
+      Response::showSuccess('List updated successfully');
+
+      $list = ShoppingList::getById($id);
+    }
+    else {
+      Response::showError('Missing required parameters');
+    }
   }
 }
 else {
@@ -21,14 +31,24 @@ else {
   <a href="/user/delete-list.php?id=<?php echo $list['id']; ?>">Delete</a>
   
   <ul>
-    <?php foreach (ShoppingList::getItems($list['id']) as $item) { ?>
+    <?php foreach (ShoppingList::getItems($list['id']) as $item) { 
+      $product = Product::findById($item['product_id']);
+      ?>
       <li>
-        <span>
-          <?php echo $item['name']; ?>
-        </span>
+        <a href="/product.php?id=<?php echo $product['id']; ?>">
+          <?php echo $product['name']; ?>
+        </a> - 
+        <a href="/user/remove-from-list.php?id=<?php echo $list['id']; ?>&product_id=<?php echo $product['id']; ?>">
+          Remove
+        </a>
       </li>
     <?php } ?>
   </ul>
+
+  <form action="/user/list.php?id=<?php echo $list['id']; ?>" method="POST">
+    <input type="text" name="name" value="" placeholder="New list name" required>
+    <input type="submit" name="submit" value="Rename">
+  </form>  
 </div>
 
 <?php
