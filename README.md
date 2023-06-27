@@ -16,3 +16,4 @@ MailHog servis za presretanje mail-ova se nalazi na: `http://localhost:8025`
 - Admin može da verifikuje, banuje i da postavlja druge korisnike kao admine
 - Admin može da dodaje, briše i uređuje proizvode
 - Resetovanje šifre u slučaju zaboravljene šifre
+- Korisnik može da kreira i briše šoping liste i da dodaje i uklanja proizvode sa liste
