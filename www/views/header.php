@@ -5,6 +5,7 @@ $logged_in = Session::isLoggedIn();
 <html>
 <head>
   <title>Vegan Shop</title>
+  <link rel="stylesheet" type="text/css" href="https://bootswatch.com/5/darkly/bootstrap.min.css">
   <link rel="stylesheet" type="text/css" href="/css/main.css">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
