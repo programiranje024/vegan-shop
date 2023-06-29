@@ -73,6 +73,7 @@ if (Request::isSubmitted()) {
   <p>Total: <?= $total ?></p>
   <form action="/user/cart.php" method="post">
     <input type="submit" name="submit" value="Checkout" />
+    <input type="submit" onclick="clearCart()" value="Clear cart" />
   </form>
   <?php } ?>
 </div>

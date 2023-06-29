@@ -15,7 +15,7 @@ $logged_in = Session::isLoggedIn();
       <li><a href="/index.php">Home</a></li>
       <?php if ($logged_in) { ?>
         <li><a href="/user/profile.php">Profile</a></li>
-        <li><a href="/user/cart.php">Cart</a></li>
+        <li><a id='cart-link' href="/user/cart.php">Cart</a></li>
         <li><a href="/user/shopping-lists.php">Shopping Lists</a></li>
       <?php if (Session::getSessionUser()['admin']) { ?>
         <li><a href="/admin/index.php">Admin</a></li>

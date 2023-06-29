@@ -57,6 +57,19 @@ class Product {
     });
   }
 
+  static function getCartItemCount($user_id) {
+    $db = Db::get();
+    $stmt = $db->prepare('SELECT COUNT(*) AS count FROM cart WHERE user_id = ?');
+    $stmt->execute([$user_id]);
+    return $stmt->fetch()['count'];
+  }
+
+  static function clearCart($user_id) {
+    $db = Db::get();
+    $stmt = $db->prepare('DELETE FROM cart WHERE user_id = ?');
+    $stmt->execute([$user_id]);
+  }
+
   static function finishOrder($user_id) {
     $items = self::getCartItems($user_id);
     $user = User::findById($user_id);

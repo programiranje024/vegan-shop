@@ -18,6 +18,8 @@ if (Request::hasAllKeys($_GET, ['id'])) {
 else {
   die(Response::showError('Missing required parameters'));
 }
+
+$lists = ShoppingList::getListsByUser(Session::getSessionUser()['id']);
 ?>
 <div class="container">
   <h1>Vegan Shop</h1>
@@ -31,16 +33,18 @@ else {
     <form action="/product.php?id=<?= $id ?>" method="post">
       <input type="submit" name="submit" value="Add to Cart" />
     </form>
+    <?php if (!empty($lists)) { ?>
     <hr />
     <form action="/user/add-to-list.php" method="get">
       <input type="hidden" name="product_id" value="<?= $id ?>" />
       <select name="id">
-        <?php foreach (ShoppingList::getListsByUser(Session::getSessionUser()['id']) as $list) { ?>
+        <?php foreach ($lists as $list) { ?>
           <option value="<?= $list['id'] ?>"><?= $list['name'] ?></option>
         <?php } ?>
       </select>
       <input type="submit" name="submit" value="Add to List" />
     </form>
+    <?php } ?>
   <?php
     } else {
   ?>
