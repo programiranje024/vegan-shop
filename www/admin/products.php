@@ -10,7 +10,7 @@ $products = Product::getAll();
 
 <div class="container">
   <h1>Product Admin</h1>
-  <table>
+  <table class="table">
     <thead>
       <tr>
         <th>ID</th>
@@ -28,8 +28,8 @@ $products = Product::getAll();
           <td><?= $product['name'] ?></td>
           <td><?= $product['price'] ?></td>
           <td>
-            <a href="/admin/edit_product.php?id=<?= $product['id'] ?>">Edit</a>
-            <a href="/admin/delete_product.php?id=<?= $product['id'] ?>">Delete</a>
+            <a href="/admin/edit_product.php?id=<?= $product['id'] ?>" class="btn btn-primary">Edit</a>
+            <a href="/admin/delete_product.php?id=<?= $product['id'] ?>" class="btn btn-danger">Delete</a>
           </td>
         </tr>
       <?php
@@ -37,7 +37,7 @@ $products = Product::getAll();
       ?>
     </tbody>
   </table>
-  <a href="/admin/add_product.php">Add Product</a>
+  <a href="/admin/add_product.php" class="btn btn-primary">Add Product</a>
 </div>
 
 <?php

@@ -24,19 +24,34 @@ if (Request::isSubmitted()) {
     Response::showError('Please fill in all fields');
   }
 }
+
+$recently_ordered_products = Product::getRecentlyOrderedProducts($user['id']);
 ?>
 
 <div class="container">
-  <p>Logged in as: <?= $user['email'] ?></p>
+  <p>Logged in as: 
+    <span class="font-weight-bold">
+      <?= $user['email'] ?>
+    </span>
+  </p>
   <form action="/user/profile.php" method="post">
-    <input type="password" name="password" placeholder="Password">
-    <input type="password" name="old_password" placeholder="Old password">
-    <input type="submit" name="submit" value="Change password">
+    <div class="form-group">
+      <label for="password">Password</label>
+      <input class="form-control" type="password" name="password" placeholder="Password" required>
+    </div>
+
+    <div class="form-group">
+      <label for="old_password">Old password</label>
+      <input class="form-control" type="password" name="old_password" placeholder="Old password" required>
+    </div>
+
+    <input class="btn btn-primary mt-3" type="submit" name="submit" value="Change password">
   </form>
+  <?php if (!empty($recently_ordered_products)) { ?>
   <hr />
   <p>Recently ordered products:</p>
   <ul>
-  <?php foreach(Product::getRecentlyOrderedProducts($user['id']) as $product) { ?>
+  <?php foreach($recently_ordered_products as $product) { ?>
     <li>
       <a href="/product.php?id=<?= $product['id'] ?>">
         <?= $product['name'] ?>
@@ -44,6 +59,7 @@ if (Request::isSubmitted()) {
     </li>
   <?php } ?>
   </ul>
+  <?php } ?>
 </div>
 
 <?php

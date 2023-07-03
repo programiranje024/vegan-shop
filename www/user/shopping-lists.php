@@ -35,8 +35,12 @@ $shopping_lists = ShoppingList::getListsByUser($user['id']);
   <hr />
 
   <form method="POST" action="/user/shopping-lists.php">
-    <input type="text" name="name" placeholder="Name">
-    <input type="submit" name="submit" value="Add new list">
+    <div class="form-group">
+      <label for="name">Name</label>
+      <input class="form-control" type="text" name="name" placeholder="Name" required>
+    </div>
+
+    <input class="btn btn-primary mt-3" type="submit" name="submit" value="Add new list">
   </form>
 </div>
 

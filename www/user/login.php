@@ -29,10 +29,19 @@ if (!Session::isLoggedIn()) {
 ?>
 <div class="container">
   <form action="/user/login.php" method="post">
-    <input type="email" name="email" placeholder="Email" required>
-    <input type="password" name="password" placeholder="Password" required>
-    <input type="submit" name="submit" value="Login">
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input class="form-control" type="email" name="email" placeholder="Email" required>
+    </div>
+
+    <div class="form-group">
+      <label for="password">Password</label>
+      <input class="form-control" type="password" name="password" placeholder="Password" required>
+    </div>
+  
+    <input class="btn btn-primary mt-3" type="submit" name="submit" value="Login">
   </form>
+
   <a href="/user/forgot-password.php">Forgot password?</a>
 </div>
 <?php

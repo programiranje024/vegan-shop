@@ -36,7 +36,7 @@ if (Request::isSubmitted()) {
   <?php if(empty($items)) { ?>
   <p>Your cart is empty</p>
   <?php } else { ?>
-  <table>
+  <table class="table">
     <thead>
       <tr>
         <th>Product</th>
@@ -55,14 +55,19 @@ if (Request::isSubmitted()) {
         $total += $subtotal;
       ?>
         <tr>
-          <td><?= $product['name'] ?></td>
+          <td>
+            <a href="/product.php?id=<?= $product['id'] ?>">
+              <img src="/uploads/<?= $product['image'] ?>" width="50" />
+              <?= $product['name'] ?>
+            </a>
+          </td>
           <td><?= $product['price'] ?></td>
           <td><?= $item['quantity'] ?></td>
           <td><?= $subtotal ?></td>
           <td>
             <form action="/user/cart.php" method="post">
               <input type="hidden" name="id" value="<?= $item['id'] ?>" />
-              <input type="submit" name="submit" value="Remove" />
+              <input type="submit" name="submit" value="Remove" class="btn btn-danger" />
             </form>
           </td>
         </tr>
@@ -72,8 +77,8 @@ if (Request::isSubmitted()) {
   </table>
   <p>Total: <?= $total ?></p>
   <form action="/user/cart.php" method="post">
-    <input type="submit" name="submit" value="Checkout" />
-    <input type="submit" onclick="clearCart()" value="Clear cart" />
+    <input type="submit" name="submit" value="Checkout" class="btn btn-primary" />
+    <input type="submit" onclick="clearCart()" value="Clear cart" class="btn btn-danger" />
   </form>
   <?php } ?>
 </div>

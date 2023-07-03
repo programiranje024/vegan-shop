@@ -30,10 +30,22 @@ if (Request::isSubmitted()) {
 
 <div class="container">
   <form action="/user/register.php" method="post">
-    <input type="emal" name="email" placeholder="Email" required>
-    <input type="password" name="password" placeholder="Password" required>
-    <input type="password" name="confirm_password" placeholder="Confirm Password" required>
-    <input type="submit" name="submit" value="Register">
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input class="form-control" type="emal" name="email" placeholder="Email" required>
+    </div>
+
+    <div class="form-group">
+      <label for="password">Password</label>
+      <input class="form-control" type="password" name="password" placeholder="Password" required>
+    </div>
+
+    <div class="form-group">
+      <label for="confirm_password">Confirm Password</label>
+      <input class="form-control" type="password" name="confirm_password" placeholder="Confirm Password" required>
+    </div>
+
+    <input class="btn btn-primary mt-3" type="submit" name="submit" value="Register">
   </form>
 </div>
 

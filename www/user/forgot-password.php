@@ -25,8 +25,12 @@ include_once('../views/header.php');
 ?>
 <div class="container">
   <form action="/user/forgot-password.php" method="post">
-    <input type="email" name="email" placeholder="Email" required>
-    <input type="submit" name="submit" value="Reset Password">
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input class="form-control" type="email" name="email" placeholder="Email" required>
+    </div>
+
+    <input class="btn btn-primary mt-3" type="submit" name="submit" value="Reset Password">
   </form>
 </div>
 

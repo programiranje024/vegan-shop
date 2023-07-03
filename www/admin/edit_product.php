@@ -44,11 +44,27 @@ if (Request::isSubmitted()) {
 <div class="container">
   <h1>Edit Product</h1>
   <form action="/admin/edit_product.php?id=<?= $id ?>" method="post" enctype="multipart/form-data">
-    <input type="text" name="name" placeholder="Name" value="<?= $product['name'] ?>" />
-    <input type="number" name="price" min="1" placeholder="Price" value="<?= $product['price'] ?>" />
-    <textarea name="description" placeholder="Description"><?= $product['description'] ?></textarea>
-    <input type="file" name="image" />
-    <input type="submit" name="submit" value="Edit Product" />
+    <div class="form-group">
+      <label for="name">Name</label>
+      <input class="form-control" type="text" name="name" placeholder="Name" value="<?= $product['name'] ?>" required>
+    </div>
+
+    <div class="form-group">
+      <label for="price">Price</label>
+      <input class="form-control" type="number" name="price" min="1" placeholder="Price" value="<?= $product['price'] ?>" required>
+    </div>
+
+    <div class="form-group">
+      <label for="description">Description</label>
+      <textarea class="form-control" name="description" placeholder="Description" required><?= $product['description'] ?></textarea>
+    </div>
+
+    <div class="form-group">
+      <label for="image">Image</label>
+      <input class="form-control" type="file" name="image">
+    </div>
+
+    <input class="btn btn-primary mt-3" type="submit" name="submit" value="Edit Product">
   </form>
 </div>
 

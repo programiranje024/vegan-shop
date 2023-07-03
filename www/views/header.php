@@ -6,10 +6,11 @@ $logged_in = Session::isLoggedIn();
 <head>
   <title>Vegan Shop</title>
   <link rel="stylesheet" type="text/css" href="https://bootswatch.com/5/united/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="/css/main.css">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary mb-3">
     <div class="collapse navbar-collapse" id="mainNavbar">
         <ul class="navbar-nav">
           <li class="nav-item">
@@ -18,9 +19,6 @@ $logged_in = Session::isLoggedIn();
           <?php if ($logged_in) { ?>
             <li class="nav-item">
               <a class="nav-link" href="/user/profile.php">Profile</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/user/cart.php">Cart</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" id='cart-link' href="/user/cart.php">Cart</a>

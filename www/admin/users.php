@@ -14,7 +14,7 @@ $users = array_filter($users, function($user) {
 
 <div class="container">
   <h1>User Admin</h1>
-  <table>
+  <table class="table">
     <thead>
       <tr>
         <th>ID</th>
@@ -34,10 +34,10 @@ $users = array_filter($users, function($user) {
             <td><?= $user['admin'] ? 'Yes' : 'No' ?></td>
             <td><?= $user['verified'] ? 'Yes' : 'No' ?></td>
             <td>
-              <a href="/admin/make_admin.php?id=<?= $user['id'] ?>">Make Admin</a>
-              <a href="/admin/verify.php?id=<?= $user['id'] ?>">Verify</a>
-              <a href="/admin/ban.php?id=<?= $user['id'] ?>">Ban</a>
-              <a href="/admin/delete_user.php?id=<?= $user['id'] ?>">Delete</a>
+              <a href="/admin/make_admin.php?id=<?= $user['id'] ?>" class="btn btn-secondary">Make Admin</a>
+              <a href="/admin/verify.php?id=<?= $user['id'] ?>" class="btn btn-primary">Verify</a>
+              <a href="/admin/ban.php?id=<?= $user['id'] ?>" class="btn btn-danger">Ban</a>
+              <a href="/admin/delete_user.php?id=<?= $user['id'] ?>" class="btn btn-danger">Delete</a>
             </td>
           </tr>
           <?php

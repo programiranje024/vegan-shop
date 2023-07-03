@@ -19,7 +19,6 @@ else {
   die(Response::showError('Missing required parameters'));
 }
 
-$lists = ShoppingList::getListsByUser(Session::getSessionUser()['id']);
 ?>
 <div class="container">
   <h1>Vegan Shop</h1>
@@ -29,26 +28,30 @@ $lists = ShoppingList::getListsByUser(Session::getSessionUser()['id']);
   <img src="/uploads/<?= $product['image']; ?>" height="500" />
   <?php
   if (Session::isLoggedIn()) {
+    $lists = ShoppingList::getListsByUser(Session::getSessionUser()['id']);
   ?>
     <form action="/product.php?id=<?= $id ?>" method="post">
-      <input type="submit" name="submit" value="Add to Cart" />
+      <input type="submit" name="submit" value="Add to Cart" class="btn btn-primary mt-3" />
     </form>
     <?php if (!empty($lists)) { ?>
     <hr />
     <form action="/user/add-to-list.php" method="get">
       <input type="hidden" name="product_id" value="<?= $id ?>" />
-      <select name="id">
-        <?php foreach ($lists as $list) { ?>
-          <option value="<?= $list['id'] ?>"><?= $list['name'] ?></option>
-        <?php } ?>
-      </select>
-      <input type="submit" name="submit" value="Add to List" />
+      <div class="form-group">
+        <label for="id">Name</label>
+        <select name="id" class="form-control">
+          <?php foreach ($lists as $list) { ?>
+            <option value="<?= $list['id'] ?>"><?= $list['name'] ?></option>
+          <?php } ?>
+        </select>
+      </div>
+      <input type="submit" name="submit" value="Add to List" class="btn btn-primary mt-3" />
     </form>
     <?php } ?>
   <?php
     } else {
   ?>
-    <p>Please <a href="/login.php">login</a> to add to cart</p>
+    <p class="mt-3">Please <a href="/login.php">login</a> to add to cart</p>
   <?php
     }
   ?>
