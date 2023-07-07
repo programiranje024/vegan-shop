@@ -10,7 +10,11 @@ if (Request::hasAllKeys($_GET, ['id'])) {
 
   if (Request::isSubmitted()) {
     $user = Session::getSessionUser();
-    Product::addToCart($id, $user['id']);
+    $quantity = $_POST['quantity'] ?? 1;
+
+    for ($i = 0; $i < $quantity; $i++) {
+      Product::addToCart($id, $user['id']);
+    }
 
     Response::showSuccess('Product added to cart');
   }
@@ -31,6 +35,10 @@ else {
     $lists = ShoppingList::getListsByUser(Session::getSessionUser()['id']);
   ?>
     <form action="/product.php?id=<?= $id ?>" method="post">
+      <div class="form-group">
+        <label for="quantity">Quantity</label>
+        <input type="number" name="quantity" value="1" class="form-control" />
+      </div>
       <input type="submit" name="submit" value="Add to Cart" class="btn btn-primary mt-3" />
     </form>
     <?php if (!empty($lists)) { ?>
