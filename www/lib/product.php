@@ -10,6 +10,13 @@ class Product {
     return $stmt->fetchAll();
   }
 
+  static function search($name) {
+    $db = Db::get();
+    $stmt = $db->prepare('SELECT * FROM products WHERE name LIKE ?');
+    $stmt->execute(['%' . $name . '%']);
+    return $stmt->fetchAll();
+  }
+
   static function create($name, $description, $price, $image) {
     $db = Db::get();
     $stmt = $db->prepare('INSERT INTO products (name, description, price, image) VALUES (?, ?, ?, ?)');
