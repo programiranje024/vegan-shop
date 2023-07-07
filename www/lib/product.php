@@ -101,7 +101,7 @@ class Product {
 
   static function getRecentlyOrderedProducts($user_id) {
     $db = Db::get();
-    $stmt = $db->prepare('SELECT products.id, products.name, products.description, products.price, COUNT(*) AS quantity FROM order_items JOIN products ON products.id = order_items.product_id JOIN orders ON orders.id = order_items.order_id WHERE orders.user_id = ? GROUP BY products.id ORDER BY orders.id DESC LIMIT 5');
+    $stmt = $db->prepare('SELECT products.id, products.name, products.description, products.price, COUNT(*) AS quantity FROM order_items JOIN products ON products.id = order_items.product_id JOIN orders ON orders.id = order_items.order_id WHERE orders.user_id = ? GROUP BY products.id LIMIT 5');
     $stmt->execute([$user_id]);
     return $stmt->fetchAll();
   }
